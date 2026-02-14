@@ -1,7 +1,7 @@
 import json
 import os
 import requests
-
+import argparse
 
 def fetch_posts():
     url = "https://jsonplaceholder.typicode.com/posts"
@@ -20,11 +20,29 @@ def save_posts_to_json(posts, output_path):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="API Data Processing Tool")
+
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=100,
+        help="Number of posts to save"
+    )
+
+    parser.add_argument(
+        "--output",
+        type=str,
+        default="posts.json",
+        help="Output JSON file name"
+    )
+
+    args = parser.parse_args()
+
     posts = fetch_posts()
     print(f"Fetched {len(posts)} posts")
 
     simplified_posts = []
-    for post in posts:
+    for post in posts[:args.limit]:
         simplified_posts.append({
             "userId": post["userId"],
             "id": post["id"],
@@ -36,7 +54,7 @@ def main():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    output_path = os.path.join(output_dir, "posts.json")
+    output_path = os.path.join(output_dir,args.output)
     save_posts_to_json(simplified_posts, output_path)
 
     print(f"Saved data to {output_path}")

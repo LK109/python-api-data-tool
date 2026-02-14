@@ -10,3 +10,6 @@ A Python tool that fetches data from a public API and prepares it for further pr
 ## Day 2
 - Parse API response data
 - Save structured data to JSON file
+
+## Day 3
+- Add CLI arguments for limit and output file
