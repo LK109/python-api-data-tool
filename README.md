@@ -6,3 +6,7 @@ A Python tool that fetches data from a public API and prepares it for further pr
 ## Day 1
 - Fetch data from a public REST API
 - Print basic preview of the data
+
+## Day 2
+- Parse API response data
+- Save structured data to JSON file
