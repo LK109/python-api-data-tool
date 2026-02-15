@@ -2,6 +2,7 @@ import json
 import os
 import requests
 import argparse
+import csv
 
 def fetch_posts():
     url = "https://jsonplaceholder.typicode.com/posts"
@@ -18,6 +19,15 @@ def save_posts_to_json(posts, output_path):
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(posts, f, ensure_ascii=False, indent=2)
 
+def save_posts_to_csv(posts, output_path):
+    with open(output_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=["userId", "id", "title", "body"]
+        )
+
+        writer.writeheader()
+        writer.writerows(posts)
 
 def main():
     parser = argparse.ArgumentParser(description="API Data Processing Tool")
@@ -58,7 +68,10 @@ def main():
     save_posts_to_json(simplified_posts, output_path)
 
     print(f"Saved data to {output_path}")
+    csv_output_path = os.path.join(output_dir, "posts.csv")
+    save_posts_to_csv(simplified_posts[:args.limit], csv_output_path)
 
+    print(f"Saved CSV to {csv_output_path}")
 #test code before
 # def main():
 #     posts = fetch_posts()

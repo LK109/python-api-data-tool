@@ -13,3 +13,6 @@ A Python tool that fetches data from a public API and prepares it for further pr
 
 ## Day 3
 - Add CLI arguments for limit and output file
+
+## Day 4
+- Convert API data to CSV format
